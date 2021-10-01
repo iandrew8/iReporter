@@ -8,7 +8,7 @@
     <session-factory>
 
         <!-- Database Connection Settings -->
-        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ireporter</property>
 
         <property name="hibernate.connection.username">pahappa</property>
@@ -26,13 +26,14 @@
         <!-- Enable Hibernate's automatic session context management -->
         <property name="current_session_context_class">thread</property>
 
-        <!-- Disable the second-level cache -->
-        <property name="cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
+<!--         Disable the second-level cache 
+        <property name="cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>-->
 
         <!-- Specifying Session Context -->
         <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
 
         <!-- Mapping With Model Classes Containing Annotations -->
+        <mapping class="org.pahappa.systems.models.Incident"/>
 
     </session-factory>
 

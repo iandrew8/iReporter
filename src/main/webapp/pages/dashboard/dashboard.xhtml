@@ -1,0 +1,120 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <h:outputStylesheet library="css" name="dashboard_nav.css"/>
+    
+    <title>Dashboard</title>
+</h:head>
+
+<h:body>
+    <!-- Side Navigation bar -->
+    <div class="sidenav">
+        <p:outputLabel style="color: white;margin-left: 13px;font-weight: 500;font-size: 20px"><span style="color: red">i</span>Reporter</p:outputLabel>
+        <br/><br/>
+        <div>
+            <p:link outcome="/pages/dashboard/dashboard.xhtml"
+                    style="color: white;text-decoration: none;font-size: 17px;margin-left: 9px">
+                <i  class="pi pi-chart-line"></i>   Analytics
+            </p:link>
+        </div>
+        <br/>
+        <div>
+            <p:link outcome="/pages/incidents_views/addincidents.xhtml"
+                    style="color: white;text-decoration: none;font-size: 17px;margin-left: 9px">
+                <i  class="pi pi-plus-circle"></i>   Add Incident
+            </p:link>
+        </div>
+
+        <br/>
+
+        <div>
+            <p:outputLabel style="color: white;font-size: 17px;margin-left: 9px"><i class="pi pi-eye"/> View Incidents<br/><br/>
+                <p:link outcome="/pages/incidents_views/allincidents.xhtml"
+                        style="color: white;text-decoration: none;font-size: 17px;margin-left: 14px">
+                    <i  class="pi pi-list" style="color: red"></i> All incidents
+                </p:link>
+                <br/><br/>
+                <p:link outcome="/pages/incidents_views/redflag_incidents.xhtml"
+                        style="color: white;text-decoration: none;font-size: 17px;margin-left: 14px">
+                    <i  class="pi pi-flag" style="color: red"></i> Red Flag
+                </p:link>
+                <br/><br/>
+                <p:link outcome="/pages/incidents_views/intervention_incidents.xhtml"
+                        style="color: white;text-decoration: none;font-size: 17px;margin-left: 14px">
+                    <i  class="pi pi-user-edit" style="color: red"></i> Intervention 
+                </p:link>
+
+            </p:outputLabel>
+        </div>
+        <br/><br/><br/>
+        <div>
+            <p:link outcome="/pages/ireporterHome.xhtml"
+                    style="color: white;text-decoration: none;font-size: 17px;margin-left: 9px">
+                <i  class="pi pi-home"></i> Home
+            </p:link>
+        </div>
+
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="main">
+        <p:outputLabel style="margin-left: 400px;font-weight: 558"><span style="color: red">i</span>Reporter <span style="font-weight: lighter">DASHBOARD</span></p:outputLabel>
+        <p:card style="height: 36em;margin-left: 4%;width: 60em">
+            <p:panelGrid columns="3" layout="grid" style="padding-left: 65px">
+                <p:card style="width: 10em;height: 10em;border-bottom: solid 2px green">
+                    <p:outputLabel style="padding-left: 12px;font-weight: bold">
+                        All Incidents<br/>
+                        <i class="pi pi-list" style="padding-left: 50px;color: green"></i>
+                    </p:outputLabel>
+                    <br/><br/>
+                    <p:outputLabel style="color: green;font-size: 30px;padding-left: 50px">#{ireporterView.incidentNumber()}</p:outputLabel>
+                </p:card>
+
+                <p:card style="width: 10em;height: 10em;border-bottom: solid 2px red">
+                    <p:outputLabel style="padding-left: 26px;font-weight: bold">
+                        Red-Flag<br/>
+
+                        <i class="pi pi-flag" style="padding-left: 50px;color: red"></i>
+                    </p:outputLabel>
+                    <br/><br/>
+                    <p:outputLabel style="color: red;font-size: 30px;padding-left: 50px">#{ireporterView.redflagIncidents.size()}</p:outputLabel>
+                </p:card>
+
+                <p:card style="width: 10em;height: 10em;border-bottom: solid 2px blue">
+                    <p:outputLabel style="padding-left: 16px;font-weight: bold">
+                        Intervention<br/>
+
+                        <i class="pi pi-user-edit" style="padding-left: 50px;color: blue"></i>
+                    </p:outputLabel>
+                    <br/><br/>
+                    <p:outputLabel style="color: blue;font-size: 30px;padding-left: 50px">#{ireporterView.interventionIncidents.size()}</p:outputLabel>
+                </p:card>
+            </p:panelGrid>
+            <br/><br/>
+            <div>
+                <p:tag styleClass="p-mr-2" icon="pi pi-info-circle" severity="info" value="TIPS" style="margin-left: 35em"></p:tag>
+                <br/><br/>
+                <p:panelGrid columns="3" layout="grid">
+                    <p:outputLabel><i class="pi pi-chevron-circle-right" style="color: royalblue"></i>
+                        A <b>Red Flag</b> incident is linked to corruption
+                    </p:outputLabel>
+                    <p:outputLabel><i class="pi pi-chevron-circle-right" style="color: royalblue"></i>
+                        An <b>Intervention</b> incident is a call for a government agency to intervene e.g repair bad road sections
+                        collapsed bridges, flooding etc.
+                    </p:outputLabel>
+                    <p:outputLabel><i class="pi pi-chevron-circle-right" style="color: royalblue"></i>
+                        You can <b>add</b>,<b>view</b>,<b>edit</b> and <b>delete</b> an Incident
+                    </p:outputLabel>
+                </p:panelGrid>
+            </div>
+        </p:card>
+
+    </div>
+
+
+</h:body>
+
+</html>
