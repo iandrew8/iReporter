@@ -1,0 +1,147 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <h:outputStylesheet library="css" name="dashboard_nav.css"/>
+    <title>All Incidents</title>
+</h:head>
+
+<h:body>
+    <!-- Side Navigation bar -->
+    <div class="sidenav">
+        <p:outputLabel style="color: white;margin-left: 13px;font-weight: 500;font-size: 20px"><span style="color: red">i</span>Reporter</p:outputLabel>
+        <br/><br/>
+        <div>
+            <p:link outcome="/pages/dashboard/dashboard.xhtml"
+                    style="color: white;text-decoration: none;font-size: 17px;margin-left: 9px">
+                <i  class="pi pi-chart-line"></i> Analytics
+            </p:link>
+        </div>
+        <br/>
+        <div>
+            <p:link outcome="/pages/incidents_views/addincidents.xhtml"
+                    style="color: white;text-decoration: none;font-size: 17px;margin-left: 9px">
+                <i  class="pi pi-plus-circle"></i> Add Incident
+            </p:link>
+        </div>
+
+        <br/>
+
+        <div>
+            <p:outputLabel style="color: white;font-size: 17px;margin-left: 9px"><i class="pi pi-eye"/> View Incidents<br/><br/>
+                <p:link outcome="/pages/incidents_views/allincidents.xhtml"
+                        style="color: white;text-decoration: none;font-size: 17px;margin-left: 14px">
+                    <i  class="pi pi-list" style="color: red"></i> All incidents
+                </p:link>
+                <br/><br/>
+                <p:link outcome="/pages/incidents_views/redflag_incidents.xhtml"
+                        style="color: white;text-decoration: none;font-size: 17px;margin-left: 14px">
+                    <i  class="pi pi-flag" style="color: red"></i> Red Flag 
+                </p:link>
+                <br/><br/>
+                <p:link outcome="/pages/incidents_views/intervention_incidents.xhtml"
+                        style="color: white;text-decoration: none;font-size: 17px;margin-left: 14px">
+                    <i  class="pi pi-user-edit" style="color: red"></i> Intervention 
+                </p:link>
+
+            </p:outputLabel>
+        </div>
+        <br/><br/><br/>
+        <div>
+            <p:link outcome="/pages/ireporterHome.xhtml"
+                    style="color: white;text-decoration: none;font-size: 17px;margin-left: 9px">
+                <i  class="pi pi-home"></i> Home 
+            </p:link>
+        </div>
+    </div>
+    <div class="main">
+        <p:growl id="message" showDetail="true"/>
+        <p:outputLabel style="margin-left: 400px;font-weight: bold">ALL INCIDENTS</p:outputLabel>
+<!--        <p:card style="width: 62em">-->
+<p:dataTable id="incident_table" var="incid" value="#{ireporterView.incidents}"
+                         paginator="true" rows="3" styleClass="p-mt-2">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Incident ID"/>
+                    </f:facet>
+                    <h:outputText value="#{incid.id}"/>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Incident Type"/>
+                    </f:facet>
+                    <h:outputText value="#{incid.type}"/>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Incident Title"/>
+                    </f:facet>
+                    <h:outputText value="#{incid.title}"/>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Incident Comment"/>
+                    </f:facet>
+                    <h:outputText value="#{incid.comment}"/>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Status"/>
+                    </f:facet>
+                    <h:outputText value="#{incid.status}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Action"/>
+                    </f:facet>
+                    <div style="display: inline-flex">
+                    <p:commandButton type="button" icon="pi pi-pencil" onclick="PF('dlg1').show()" styleClass="ui-button-raised ui-button-warning"/>
+                  
+                    <p:commandButton  style="margin-left: 10px" action="#{ireporterView.incidents.remove(incid)}" update="message" styleClass="ui-button-danger" icon="pi pi-trash">
+<!--                        <p:confirm header="Confirmation" message="Do you want to delete this incident?" icon="pi pi-info-circle"/>-->
+                    </p:commandButton>
+                    </div>
+<!--                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+                    </p:confirmDialog>-->
+                    <p:dialog header="Edit Incidents" widgetVar="dlg1" minHeight="40" width="400" showEffect="fade">
+                        <h:form>
+                           <p:panelGrid columns="1" layout="grid">
+                               <label for="selectRadio">Incident Type</label>
+
+                               <h:selectOneMenu value="#{ireporterView.incident.type}">
+                                   <f:selectItem itemLabel="Select type" itemValue="null"/>
+                                   <f:selectItems var="type" itemLabel="#{type.label}"  value="#{ireporterView.types}"/>
+                               </h:selectOneMenu>
+                               <label for="title">Title
+                                   <p:inputText id="title" value="#{ireporterView.incident.title}" placeholder="Incident Title..."></p:inputText>
+                               </label>
+
+                               <label for="comment">Comment
+                                   <p:inputTextarea id="comment" value="#{ireporterView.incident.comment}" placeholder="Enter your comment about the incident here..." rows="3" cols="40"></p:inputTextarea>
+                               </label>
+
+                               <p:commandButton type="button" value="Update" action="#{ireporterView.update(ireporterView.incident)}" icon="pi pi-pencil"/>
+                           </p:panelGrid>
+                       </h:form>
+                    </p:dialog>
+                </p:column>
+               
+            </p:dataTable>
+
+<!--        </p:card>-->
+
+    </div>
+
+
+
+</h:body>
+
+</html>
