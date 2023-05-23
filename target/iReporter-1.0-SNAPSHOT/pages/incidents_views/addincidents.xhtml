@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <script name="jquery/jquery.js" library="primefaces"></script>
+    <h:outputStylesheet library="css" name="dashboard_nav.css"/>
+    <h:outputStylesheet library="primefaces" value="primefaces"/>
+    <title>Add Incidents</title>
+</h:head>
+
+<h:body>
+    <!-- Side Navigation bar -->
+    <div class="sidenav">
+        <p:outputLabel style="color: white;margin-left: 13px;font-weight: 500;font-size: 20px"><span style="color: red">i</span>Reporter</p:outputLabel>
+        <br/><br/>
+        <div>
+            <p:link outcome="/pages/dashboard/dashboard.xhtml"
+                    style="color: white;text-decoration: none;font-size: 17px;margin-left: 9px">
+                <i  class="pi pi-chart-line"></i> Analytics
+            </p:link>
+        </div>
+        <br/>
+        <div>
+            <p:link outcome="/pages/incidents_views/addincidents.xhtml"
+                    style="color: white;text-decoration: none;font-size: 17px;margin-left: 9px">
+                <i  class="pi pi-plus-circle"></i> Add Incident
+            </p:link>
+        </div>
+
+        <br/>
+
+        <div>
+            <p:outputLabel style="color: white;font-size: 17px;margin-left: 9px"><i class="pi pi-eye"/> View Incidents <br/><br/>
+                <p:link outcome="/pages/incidents_views/allincidents.xhtml"
+                        style="color: white;text-decoration: none;font-size: 17px;margin-left: 14px">
+                    <i  class="pi pi-list" style="color: red"></i> All incidents
+                </p:link>
+                <br/><br/>
+                <p:link outcome="/pages/incidents_views/redflag_incidents.xhtml"
+                        style="color: white;text-decoration: none;font-size: 17px;margin-left: 14px">
+                    <i  class="pi pi-flag" style="color: red"></i> Red Flag 
+                </p:link>
+                <br/><br/>
+                <p:link outcome="/pages/incidents_views/intervention_incidents.xhtml"
+                        style="color: white;text-decoration: none;font-size: 17px;margin-left: 14px">
+                    <i  class="pi pi-user-edit" style="color: red"></i> Intervention 
+                </p:link>
+
+            </p:outputLabel>
+        </div>
+        <br/><br/><br/>
+        <div>
+            <p:link outcome="/pages/ireporterHome.xhtml"
+                    style="color: white;text-decoration: none;font-size: 17px;margin-left: 9px">
+                <i  class="pi pi-home"></i> Home
+            </p:link>
+        </div>
+    </div>
+    <div class="main">
+        <p:outputLabel style="margin-left: 400px;font-weight: bold">ADD INCIDENTS</p:outputLabel>
+        
+        <p:card style="width: 50em">
+        <h:form>
+	<p:growl id="messages"></p:growl>
+	<p:panelGrid columns="1">
+                <h:selectOneMenu value="#{ireporterView.incident.type}">
+                        <f:selectItem itemLabel="Select type" itemValue="null"/>
+                        <f:selectItems var="type" itemLabel="#{type.label}"  value="#{ireporterView.types}"/>
+                </h:selectOneMenu>
+		<p:outputLabel value="Enter Incident title"></p:outputLabel>
+                <p:inputText value="#{ireporterView.incident.title}"></p:inputText>
+		<p:outputLabel value="Enter Comment"></p:outputLabel>
+                <p:inputText value="#{ireporterView.incident.comment}"></p:inputText>
+								
+	</p:panelGrid>
+        <p:commandButton value="Add Incident" icon="pi pi-plus-circle" action="#{ireporterView.save(ireporterView.incident)}" update="messages"></p:commandButton>
+        </h:form>
+<!--            <h:form>
+                <p:growl id="growl" showDetail="true" />
+                <p:panelGrid columns="1" layout="grid">
+                  
+                    <label for="selectRadio">Incident Type</label>
+
+                    
+                    <label for="title">Title
+                        <p:inputText id="title" value="#{ireporterView.incident.title}" placeholder="Incident Title..."></p:inputText>
+                    </label>
+
+                    <label for="comment">Comment
+                        <p:inputTextarea id="comment" value="#{ireporterView.incident.comment}" placeholder="Enter your comment about the incident here..." rows="3" cols="40"></p:inputTextarea>
+                    </label>
+
+                    <p:commandButton type="button" value="Add Inicident" action="#{ireporterView.save(ireporterView.incident)}" actionListener="#{ireporterView.save(ireporterView.incident)}" update="growl" icon="pi pi-plus-circle"/>
+                </p:panelGrid>
+            </h:form>-->
+        </p:card>
+        
+    </div>
+
+
+
+</h:body>
+
+</html>
